@@ -39,3 +39,11 @@ describe('Sum' ()=> {
  2. jest > ver.28の場合 `jest-environment-jsdom`を別途インストール
  3. `jest.config.js`の`testEnvironment`プロパティに追加。
 - `import vue`を怒られたjest.configに`moduleDirectories:["node_modules",__dirname]`を入れて解決(おそらくnode_modulesの位置定義をしている？)
+
+## 記述で躓いた部分
+- nuxtのauto importを使用している場合はComponentをスタブしないといけない。
+- nuxtのpluginをテストする場合
+  [参考](https://blog.nightonly.com/2021/12/26/jest%E3%81%A7nuxtvuetify%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%82%92%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B/#inject)
+  - PluginをVueの記述に分解して、injectではなく、prototypeにセットしておく
+  - plugin用のComponentをjestファイル内で作成(Templateは空)
+  - 上記のComponentをmount時に、prototypeでセットした関数をはmounted時に実行させる。
